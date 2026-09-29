@@ -1,0 +1,223 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>IRCTC-Inspired Railway Reservation</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="rail.css" />
+</head>
+<body>
+  <div class="utility-bar">
+    <div class="utility-left">
+      <span class="flag">🇮🇳 भारत रेल</span>
+      <a href="#" aria-label="Official railway portal">Indian Railways</a>
+      <a href="#" aria-label="Passenger charter">Passenger Charter</a>
+      <a href="#" aria-label="Ask Disha chatbot">Ask Disha</a>
+    </div>
+    <div class="utility-right">
+      <button class="link-btn">Login</button>
+      <button class="link-btn">Register</button>
+      <button class="link-btn">Agent Login</button>
+      <button class="link-btn">Alerts</button>
+    </div>
+  </div>
+
+<header class="main-header">
+    <div class="brand">
+      <span class="logo">IR</span>
+      <div>
+        <h1>Railway Reservation</h1>
+        <p>Simplified online booking & unified availability</p>
+      </div>
+    </div>
+    <nav class="quick-nav">
+      <button class="nav-pill active" data-action="book">Book Ticket</button>
+      <button class="nav-pill" data-action="pnr">PNR Status</button>
+      <button class="nav-pill" data-action="vacancy">Charts / Vacancy</button>
+      <button class="nav-pill" data-action="alerts">Travel Advisory</button>
+    </nav>
+  </header>
+
+<main class="page-grid">
+    <section class="card booking-card" id="bookingStep1">
+      <header>
+        <h2>Plan Your Journey</h2>
+        <span class="muted">Step 1 · Search & select train</span>
+      </header>
+
+<form id="searchForm" class="journey-form">
+        <label>
+          From Station
+          <input name="from" id="fromStation" required placeholder="e.g., Mumbai" />
+        </label>
+        <label>
+          To Station
+          <input name="to" id="toStation" required placeholder="e.g., Delhi" />
+        </label>
+        <label>
+          Journey Date
+          <input type="date" id="travelDate" name="date" required />
+        </label>
+        <label>
+          Quota
+          <select name="quota" id="travelQuota">
+            <option value="general">General</option>
+            <option value="tatkal">Tatkal</option>
+            <option value="ladies">Ladies</option>
+            <option value="senior">Senior Citizen</option>
+          </select>
+        </label>
+        <label>
+          Class
+          <select name="class" id="travelClass">
+            <option value="any">Any Available Class</option>
+          </select>
+        </label>
+        <label>
+          Passengers
+          <input type="number" min="1" max="6" value="1" name="passengers" />
+        </label>
+        <button type="submit" class="btn primary">Search Trains</button>
+      </form>
+
+<div class="quick-links">
+        <h3>Quick Actions</h3>
+        <div class="chip-row">
+          <button class="chip">Check PNR</button>
+          <button class="chip">Live Train Status</button>
+          <button class="chip">Fare Calendar</button>
+          <button class="chip">Train Schedule</button>
+          <button class="chip">Meals & Tourism</button>
+        </div>
+      </div>
+    </section>
+
+<section class="card results-card">
+      <header class="results-header">
+        <div>
+          <h2>Unified Seat Availability</h2>
+          <p class="muted">Compare fares & seats across classes in one view</p>
+        </div>
+        <span id="resultCount">0 results</span>
+      </header>
+      <div id="trainResults" class="results-list" aria-live="polite"></div>
+    </section>
+
+<section class="card passengers-card hidden" id="bookingStep2">
+      <header>
+        <div>
+          <h2>Passenger Details</h2>
+          <p class="muted">Step 2 · Enter customer & contact information</p>
+        </div>
+        <button class="link-btn small" id="changeSelection">Change Train</button>
+      </header>
+
+<div class="selection-summary">
+        <p>
+          <strong id="selectedTrainName">—</strong><br />
+          <span id="selectedTrainRoute" class="muted"></span>
+        </p>
+        <div class="fare-info">
+          <span>Class: <strong id="selectedTrainClass">—</strong></span>
+          <span>Fare: ₹<strong id="selectedTrainFare">0</strong></span>
+          <span>Seats left: <strong id="selectedTrainSeats">0</strong></span>
+          <span id="fareCalendarLabel" class="muted"></span>
+        </div>
+      </div>
+
+<form id="passengerForm" class="passenger-form">
+        <div class="grid">
+          <label>
+            Passenger Name
+            <input name="name" required placeholder="Full Name as per ID" />
+          </label>
+          <label>
+            Age
+            <input name="age" type="number" min="1" max="120" required />
+          </label>
+          <label>
+            Gender
+            <select name="gender" required>
+              <option value="">Select</option>
+              <option>Female</option>
+              <option>Male</option>
+              <option>Other</option>
+            </select>
+          </label>
+          <label>
+            Berth Preference
+            <select name="berth">
+              <option value="No Preference">No Preference</option>
+              <option>Lower</option>
+              <option>Middle</option>
+              <option>Upper</option>
+              <option>Side Lower</option>
+              <option>Side Upper</option>
+            </select>
+          </label>
+        </div>
+
+<div class="grid">
+          <label>
+            Mobile Number
+            <input name="phone" pattern="[0-9]{10}" placeholder="10-digit number" required />
+          </label>
+          <label>
+            Email ID
+            <input name="email" type="email" placeholder="for e-ticket" required />
+          </label>
+          <label>
+            ID Proof Type
+            <select name="idType" required>
+              <option value="">Select</option>
+              <option>Aadhaar</option>
+              <option>PAN</option>
+              <option>Voter ID</option>
+              <option>Passport</option>
+              <option>Driving Licence</option>
+            </select>
+          </label>
+          <label>
+            ID Proof Number
+            <input name="idNumber" required placeholder="Enter ID details" />
+          </label>
+        </div>
+
+<label>
+          Additional Notes (Optional)
+          <textarea name="notes" rows="2" placeholder="Wheelchair, meal preference, etc."></textarea>
+        </label>
+
+<footer class="form-footer">
+          <div class="consent">
+            <input type="checkbox" id="terms" required />
+            <label for="terms">I confirm passenger details and agree to booking terms.</label>
+          </div>
+          <button type="submit" class="btn confirm">Confirm Reservation</button>
+        </footer>
+      </form>
+    </section>
+
+<aside class="sidebar">
+      <section class="card mini-card" id="recentRoutes">
+        <header>
+          <h3>Repeat Reservations</h3>
+          <p class="muted small">Frequent routes saved from recent searches</p>
+        </header>
+        <div class="mini-body" id="recentRoutesList"></div>
+      </section>
+      <section class="card mini-card">
+        <header>
+          <h3>Booking History</h3>
+          <p class="muted small">Latest confirmed e-tickets</p>
+        </header>
+        <div class="mini-body" id="historyList"></div>
+      </section>
+    </aside>
+  </main>
+
+<div id="toast" role="status" aria-live="polite"></div>
+  <script type="module" src="rail.js"></script>
+</body>
+</html>
